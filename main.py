@@ -26,12 +26,12 @@ class Student:
         else:
             return 'Ошибка'
 
-    def avg_grade_st(self, student, course_name):
-        if isinstance(student, Student) and course_name in student.courses_in_progress:
-            student.avg_grade[course_name] = statistics.mean(student.grades[course_name])
-        else:
-            print('Такого курса нет')
-            return 'Ошибка_2'
+    # def avg_grade_st(self, student, course_name):
+    #     if isinstance(student, Student) and course_name in student.courses_in_progress:
+    #         student.avg_grade[course_name] = statistics.mean(student.grades[course_name])
+    #     else:
+    #         print('Такого курса нет')
+    #         return 'Ошибка_2'
 
     # def __lt__(self, course, other):
     #     if not isinstance(other, Student):
@@ -74,15 +74,32 @@ class Lecturer(Mentor):
         return res
 
 
-    def avg_grade_lec(self, lecturer, course_name):
-        if isinstance(lecturer, Lecturer) and course_name in lecturer.courses_attached:
-            lecturer.avg_grade[course_name] = statistics.mean(lecturer.grades[course_name])
+    # def avg_grade_lec(self, lecturer, course_name):
+    #     if isinstance(lecturer, Lecturer) and course_name in lecturer.courses_attached:
+    #         lecturer.avg_grade[course_name] = statistics.mean(lecturer.grades[course_name])
+    #
+    #         #print(statistics.mean(lecturer.grades[course_name]))
+    #     else:
+    #         print('Лектор не закреплен за таким курсом')
+    #         return 'Ошибка_2'
 
-            #print(statistics.mean(lecturer.grades[course_name]))
-        else:
-            print('Лектор не закреплен за таким курсом')
-            return 'Ошибка_2'
 
+
+# Функция расчета средней оценки студентов по курсам
+def avg_grade_st(student, course_name):
+    if isinstance(student, Student) and course_name in student.courses_in_progress:
+        student.avg_grade[course_name] = statistics.mean(student.grades[course_name])
+    else:
+        print('Такого курса нет')
+        return 'Ошибка_2'
+
+#Функция расчета средней оценки, полученной лекторами за курс
+def avg_grade_lec(lecturer, course_name):
+    if isinstance(lecturer, Lecturer) and course_name in lecturer.courses_attached:
+        lecturer.avg_grade[course_name] = statistics.mean(lecturer.grades[course_name])
+    else:
+        print('Лектор не закреплен за таким курсом')
+        return 'Ошибка_2'
 
 # Добавляем 1й экземпляр класса Student
 student_1 = Student('Ruoy', 'Eman', 'your_gender')
@@ -115,12 +132,12 @@ student_1.rate_lecturer(mentor_2, 'Python', 9)
 student_2.rate_lecturer(mentor_2, 'Python', 7)
 
 # Рассчитываем средние оценки студентов по пройденным курсам
-student_1.avg_grade_st(student_1, 'Python')
-student_1.avg_grade_st(student_1, 'C++')
-student_2.avg_grade_st(student_2, 'Python')
+avg_grade_st(student_1, 'Python')
+avg_grade_st(student_1, 'C++')
+avg_grade_st(student_2, 'Python')
 
 # Рассчитываем средние оценки лекторов по прикрепленным курсам
-mentor_2.avg_grade_lec(mentor_2, 'Python')
+avg_grade_lec(mentor_2, 'Python')
 
 student_1.add_courses('Start of programming')
 student_2.add_courses('Start of programming')
